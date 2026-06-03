@@ -248,6 +248,16 @@
           }
         };
 
+        const triggerEmergencySimulation = () => {
+          if (window.unityInstance) {
+            window.unityInstance.SendMessage("WebBridge", "TriggerEmergencyAStar", `${startNode}:${endNode}`);
+            console.log(`Sent to Unity: TriggerEmergencyAStar ${startNode}:${endNode}`);
+            
+            updateBaseSpeed();
+            updateRotationSpeed();
+          }
+        };
+
         return (
           <div className="flex flex-col items-center w-full pb-20 zebra-bg min-h-screen">
             
@@ -302,8 +312,12 @@
                       {nodeIds.map(n => <option key={n} value={n}>{n}</option>)}
                     </select>
                     
-                    <button className="btn btn-primary w-full brutalist-shadow brutalist-shadow-hover" onClick={startSimulation}>
-                      START SIMULATION
+                    <button className="btn w-full brutalist-shadow brutalist-shadow-hover mb-4" onClick={startSimulation}>
+                      START NORMAL SIMULATION
+                    </button>
+
+                    <button className="btn !bg-[#ff0000] !text-white !border-[#ff0000] w-full brutalist-shadow brutalist-shadow-hover" onClick={triggerEmergencySimulation}>
+                      EMERGENCY (A* ROUTE)
                     </button>
                   </div>
                 </div>
