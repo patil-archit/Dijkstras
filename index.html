@@ -294,8 +294,17 @@
                     <label className="label">Traffic Weight</label>
                     <input type="number" className="input mb-6" value={weight} onChange={e => setWeight(e.target.value)} />
                     
-                    <button className="btn w-full brutalist-shadow brutalist-shadow-hover" onClick={updateWeight}>
+                    <button className="btn w-full brutalist-shadow brutalist-shadow-hover mb-4" onClick={updateWeight}>
                       UPDATE WEIGHT
+                    </button>
+
+                    <button className="btn !bg-[#ff8c00] !text-white !border-[#ff8c00] w-full brutalist-shadow brutalist-shadow-hover" onClick={() => {
+                        if (window.unityInstance) {
+                            window.unityInstance.SendMessage("WebBridge", "SpawnRoadblock", road);
+                            console.log(`Sent to Unity: SpawnRoadblock ${road}`);
+                        }
+                    }}>
+                      SPAWN ROADBLOCK
                     </button>
                   </div>
 
